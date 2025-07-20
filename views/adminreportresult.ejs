@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Report Result</title>
+</head>
+<body>
+  <h2>Results for <%= education %></h2>
+  <p>Median Time: <%= medianTime %></p>
+  <h3>Top 10 Times</h3>
+  <ul>
+    <% topTimes.forEach(function(time) { %>
+      <li><%= time %> ms</li>
+    <% }) %>
+  </ul>
+  <br />
+  <a href="/adminreportselect">Back to Selection</a>
+  <br />
+  <a href="/">Back to Home</a>
+</body>
+</html>

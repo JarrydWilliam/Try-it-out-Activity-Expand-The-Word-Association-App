@@ -9,6 +9,8 @@ var loginUserRouter = require('./routes/loginuser');
 var registerRouter = require('./routes/register');
 var surveyRouter = require('./routes/survey');
 var timingsRouter = require('./routes/timings');
+var adminreportselectRouter = require('./routes/adminreportselect');
+var adminreportresultRouter = require('./routes/adminreportresult');
 
 var app = express();
 
@@ -29,6 +31,8 @@ app.use('/loginuser', loginUserRouter);
 app.use('/register', registerRouter);
 app.use('/survey', surveyRouter);
 app.use('/timings', timingsRouter);
+app.use('/adminreportselect', adminreportselectRouter);
+app.use('/adminreportresult', adminreportresultRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -37,11 +41,8 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
   res.status(err.status || 500);
   res.render('error');
 });

@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
     
     console.log("register.js: POST");
-    res.direct('/');
+    res.redirect('/');
 });
 
 module.exports = router;
