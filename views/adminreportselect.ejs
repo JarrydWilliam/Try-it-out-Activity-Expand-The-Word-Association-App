@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Admin — Report Select</title>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+</head>
+<body class="container py-4">
+  <h3 class="mb-3">Admin: Select Educational Type</h3>
+  <% if (message) { %><div class="alert alert-warning"><%= message %></div><% } %>
+  <form method="post">
+    <div class="mb-3">
+      <label class="form-label">Educational Type</label>
+      <select class="form-select" name="education" required>
+        <option value="">Select one...</option>
+        <% (educations || []).forEach(e => { %>
+          <option value="<%= e %>"><%= e %></option>
+        <% }) %>
+      </select>
+    </div>
+    <button class="btn btn-primary" type="submit">View Report</button>
+    <a class="btn btn-link" href="/">Home</a>
+  </form>
+</body>
+</html>

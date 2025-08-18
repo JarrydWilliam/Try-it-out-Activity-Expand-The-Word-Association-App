@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <p>The session variable with the key called test is value: <%= locals.session.test %></p>
+
+    <!-- Added: simple links -->
+    <% if (locals.session && locals.session.logged_in) { %>
+      <p>
+        <a href="/survey">Start / Continue Survey</a> •
+        <a href="/timings">View Timings</a>
+        <% if (locals.session.role === 'admin') { %> •
+          <a href="/adminreportselect">Admin Report</a>
+        <% } %> •
+        <a href="/loginuser/logout">Log out</a>
+      </p>
+    <% } else { %>
+      <p>
+        <a href="/loginuser">Log in</a> •
+        <a href="/register">Create account</a>
+      </p>
+    <% } %>
+  </body>
+</html>

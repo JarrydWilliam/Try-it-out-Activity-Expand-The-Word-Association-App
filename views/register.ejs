@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Account</title>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/font/bootstrap-icons.css" />
+  <script src="/javascripts/auth.js"></script>
+  <script>
+    async function checkPassword(event) {
+      event.preventDefault();
+      const u = document.getElementById('username').value.trim();
+      const p1 = document.getElementById('password1').value;
+      const p2 = document.getElementById('password2').value;
+      const edu = document.getElementById('education').value;
+      const msg = document.getElementById('message');
+
+      if (!u || !p1 || !p2 || !edu) { msg.textContent = 'Please fill all required fields.'; return; }
+      if (p1 !== p2) { msg.textContent = 'Passwords do not match.'; return; }
+      if (p1.length < 6) { msg.textContent = 'Password must be at least 6 characters.'; return; }
+
+      const salt = randomSaltHex(8);
+      const hash = await sha256Hex(p1 + ':' + salt);
+
+      document.getElementById('salt').value = salt;
+      document.getElementById('hash').value = hash;
+
+      document.getElementById('password1').value = '';
+      document.getElementById('password2').value = '';
+
+      event.target.submit();
+    }
+  </script>
+</head>
+<body class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h3 class="mb-3">Create Account</h3>
+      <% if (typeof message !== 'undefined' && message) { %>
+        <div class="alert alert-warning"><%= message %></div>
+      <% } %>
+      <form method="post" onsubmit="checkPassword(event)">
+        <div class="mb-3">
+          <label class="form-label">Username*</label>
+          <input type="text" id="username" name="username" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Name</label>
+          <input type="text" id="name" name="name" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" id="email" name="email" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Gender</label>
+          <select id="gender" name="gender" class="form-select">
+            <option value="">Prefer not to say</option>
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+            <option value="Non-binary">Non-binary</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Educational Type*</label>
+          <select id="education" name="education" class="form-select" required>
+            <option value="">Select one...</option>
+            <option>High School</option>
+            <option>Some College</option>
+            <option>Associate</option>
+            <option>Bachelor</option>
+            <option>Master</option>
+            <option>Doctorate</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password*</label>
+          <input type="password" id="password1" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Confirm Password*</label>
+          <input type="password" id="password2" class="form-control" required>
+        </div>
+        <input type="hidden" id="salt" name="salt">
+        <input type="hidden" id="hash" name="hash">
+        <div id="message" class="text-danger mb-3"></div>
+        <button class="btn btn-primary" type="submit">Register</button>
+        <a class="btn btn-link" href="/loginuser">Already have an account? Sign in</a>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

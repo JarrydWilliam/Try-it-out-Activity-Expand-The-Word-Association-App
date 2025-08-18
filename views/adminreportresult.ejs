@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Admin — Report Results</title>
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+</head>
+<body class="container py-4">
+  <div class="d-flex align-items-baseline justify-content-between">
+    <h3>Report for Educational Type: <em><%= education %></em></h3>
+    <a class="btn btn-link" href="/adminreportselect">Change</a>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h5>Median (Font): <strong><%= medianFont %></strong> ms</h5>
+      <table class="table table-striped table-sm">
+        <thead><tr><th>Username</th><th>Timing (ms)</th></tr></thead>
+        <tbody>
+          <% if (!topTenFont || topTenFont.length === 0) { %>
+            <tr><td colspan="2" class="text-muted">No timings yet</td></tr>
+          <% } else { topTenFont.forEach(r => { %>
+            <tr><td><%= r.username %></td><td><%= r.timing_ms %></td></tr>
+          <% }) } %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <h5>Median (Text): <strong><%= medianText %></strong> ms</h5>
+      <table class="table table-striped table-sm">
+        <thead><tr><th>Username</th><th>Timing (ms)</th></tr></thead>
+        <tbody>
+          <% if (!topTenText || topTenText.length === 0) { %>
+            <tr><td colspan="2" class="text-muted">No timings yet</td></tr>
+          <% } else { topTenText.forEach(r => { %>
+            <tr><td><%= r.username %></td><td><%= r.timing_ms %></td></tr>
+          <% }) } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
